@@ -72,7 +72,8 @@ class Sudoku:
 	#This method checks if a particular box fulfills the rules of sudoku. That is, the numbers 1 to 9 appear uniquely in the 3x3 box. 
 	#This method takes in 2 parameters: The row and the col, and returns a boolean value based on if the box fulfills the sudoku rules
 	def check_box(self,row,col):
-		val = self.grid[row][col]
+		#val = self.grid[row][col]
+		isValid = True
 		
 		#Get the Box number: Box 1: [0][0] to [2][2], Box 2: [0][3] to [2][5], Box 3: [0][6] to [2][8]
 		#Box 4: [3][0] to [5][2], Box 5: [3][3] to [5][5], Box 6: [3][6] to [5][8]
@@ -80,6 +81,32 @@ class Sudoku:
 		
 		if row == 0 or row == 1 or row == 2:	#Case for Box 1-3
 			if col == 0 or col == 1 or col == 2:	#Box 1
-				check_box_one()
+				isValid = check_box_one()
+				
+			elif col == 3 or col == 4 or col == 5:	#Box 2
+				isValid = check_box_two()
+				
+			elif col == 6 or col == 7 or col == 8:	#Box 3
+				isValid = check_box_three()
+				
+		elif row == 3 or row == 4 or row == 5:	#Case for Box 4-6
+			if col == 0 or col == 1 or col == 2:	#Box 4
+				isValid = check_box_four()
+				
+			elif col == 3 or col == 4 or col == 5:	#Box 5
+				isValid = check_box_five()
+				
+			elif col == 6 or col == 7 or col == 8:	#Box 6
+				isValid = check_box_six()
+				
+		elif row == 6 or row == 7 or row == 8:	#Case for Box 7-9
+			if col == 0 or col == 1 or col == 2:	#Box 7
+				isValid = check_box_seven()
+				
+			elif col == 3 or col == 4 or col == 5:	#Box 8
+				isValid = check_box_eight()
+				
+			elif col == 6 or col == 7 or col == 8:	#Box 9
+				isValid = check_box_nine()
 			
 			
