@@ -68,6 +68,7 @@ class Sudoku:
 			for j in range(9):
 				print(self.grid[i][j],end='|')
 			print()
+		return ''
 			
 	#This method checks if Box1 meets the constraints for Sudoku and returns true if it does
 	def check_box_one(self):
@@ -307,73 +308,163 @@ class Sudoku:
 		
 		if row == 0 or row == 1 or row == 2:	#Case for Box 1-3
 			if col == 0 or col == 1 or col == 2:	#Box 1
-				isValid = check_box_one()
+				isValid = self.check_box_one()
 				
 			elif col == 3 or col == 4 or col == 5:	#Box 2
-				isValid = check_box_two()
+				isValid = self.check_box_two()
 				
 			elif col == 6 or col == 7 or col == 8:	#Box 3
-				isValid = check_box_three()
+				isValid = self.check_box_three()
 				
 		elif row == 3 or row == 4 or row == 5:	#Case for Box 4-6
 			if col == 0 or col == 1 or col == 2:	#Box 4
-				isValid = check_box_four()
+				isValid = self.check_box_four()
 				
 			elif col == 3 or col == 4 or col == 5:	#Box 5
-				isValid = check_box_five()
+				isValid = self.check_box_five()
 				
 			elif col == 6 or col == 7 or col == 8:	#Box 6
-				isValid = check_box_six()
+				isValid = self.check_box_six()
 				
 		elif row == 6 or row == 7 or row == 8:	#Case for Box 7-9
 			if col == 0 or col == 1 or col == 2:	#Box 7
-				isValid = check_box_seven()
+				isValid = self.check_box_seven()
 				
 			elif col == 3 or col == 4 or col == 5:	#Box 8
-				isValid = check_box_eight()
+				isValid = self.check_box_eight()
 				
 			elif col == 6 or col == 7 or col == 8:	#Box 9
-				isValid = check_box_nine()
+				isValid = self.check_box_nine()
 				
 		return isValid
 		
-		#This method checks if the row of the value is unique. One parameter: The row
-		def check_row(self,row):
-			h_row = {}
-			count = 0
+	#This method checks if the row of the value is unique. One parameter: The row
+	def check_row(self,row):
+		h_row = {}
+		count = 0
 			
-			for i in range(9):
-				if self.grid[row][i] in h_row:
-					h_row[self.grid[row][i]] += 1
-				else:
-					h_row[self.grid[row][i]] = 1
+		for i in range(9):
+			if self.grid[row][i] in h_row:
+				h_row[self.grid[row][i]] += 1
+			else:
+				h_row[self.grid[row][i]] = 1
 			
-			for key in h_row:
-				if key == 0:
-					continue
-				if h_row[key] > count:
-					count = h_row[key]
+		for key in h_row:
+			if key == 0:
+				continue
+			if h_row[key] > count:
+				count = h_row[key]
 					
-			return count < 2
+		return count < 2
 			
-		#This method checks if the col of the value is unique. One parameter: The col
-		def check_col(self,col):
-			v_col = {}
-			count = 0
+	#This method checks if the col of the value is unique. One parameter: The col
+	def check_col(self,col):
+		v_col = {}
+		count = 0
 			
-			for i in range(9):
-				if self.grid[i][col] in v_col:
-					v_col[self.grid[i][col]] += 1
-				else:
-					v_col[self.grid[i][col]] = 1
-			
-			for key in v_col:
-				if key == 0:
-					continue
-				if v_col[key] > count:
-					count = v_col[key]
+		for i in range(9):
+			if self.grid[i][col] in v_col:
+				v_col[self.grid[i][col]] += 1
+			else:
+				v_col[self.grid[i][col]] = 1
+		
+		for key in v_col:
+			if key == 0:
+				continue
+			if v_col[key] > count:
+				count = v_col[key]
 					
-			return count < 2
+		return count < 2
+			
+#####################The solver method that will call all the methods made previously. It consists of three steps:###################################
+#####################1. Enumerate all empty cells from left to right, top to bottom.#################################################################
+#####################2. Our "current cell is the first cell in the enumeration#######################################################################
+#####################3. Enter a 1 into the current cell. If it violates the sudoku condition, try entering a two, then a three, and so on until:#####
+##########################a. The entry does not violate the sudoku condition or #####################################################################
+##########################b. You have reached nine and still violate the sudoku condition############################################################
+#####################4. In case a: If the current cell was the last enumerated one, then the puzzle is solved. If not, then go back to step 2 with ##
+#########################the next cell in the enumerated cells#######################################################################################
+########################In case b: If the current cell is the first cell in the enumeration, then the sudoku puzzle does not have a solution.########
+########################If it is not, then erase the 9 from the current cell, call the previous cell in the enumeration current, and continue with #3
+
+	def solve(self):
+	
+	#Enumerate all empty cells in typewriter format
+		unSolvable = False
+		empty_squares = []
+		for i in range(9):
+			for j in range(9):
+				val = self.grid[i][j]
+				t = i, j		#store the coordinate as a tuple in the list of empty spaces
+				if val == 0:
+					empty_squares.append(t)
+					
+		current = 0
+		while current < len(empty_squares) and not unSolvable:
+			coord = empty_squares[current]	#Get the values for the row and col
+			row = coord[0]
+			col = coord[1]
+			
+			if self.grid[row][col] >= 9:
+				self.delete(row,col)		#Check for backtracking, and the value is already 9
+				current -= 1
+				continue
+				
+			self.grid[row][col] += 1	#Increment the value in the row and col by 1
+			
+			h_Valid = self.check_row(row) 	#Holds the boolean value for if the row fulfills sudoku rules
+			v_Valid = self.check_col(col)	#Holds the boolean value for if the col fulfills sudoku rules
+			b_Valid = self.check_box(row, col)	#Checks if the box fulfills sudoku rules
+			
+			while not h_Valid or not v_Valid or not b_Valid:		#Increments the value in the square by one if the rules of sudoku are not met
+				if row == 0 and col == 0 and self.grid[row][col] == 9:		#Case where there is no solution to the sudoku puzzle
+					unSolvable = True
+					break
+				
+				elif self.grid[row][col] >= 9:			#The current cell still violates the sudoku condition and is at nine, so go back to the previous current
+					self.delete(row,col)	#Erase 9 from the cell
+					current -= 1			#Go back one cell and update that value
+					break
+				
+				self.grid[row][col] += 1
+				h_Valid = self.check_row(row)
+				v_Valid = self.check_col(col)
+				b_Valid = self.check_box(row, col)
+			
+			#print(self)
+			
+			if self.grid[row][col] != 0:
+				current += 1
+			
+
+		if unSolvable:
+			return
+			
+		else:
+			self.isSolved = True
+			
+
+def main():
+	sudoku = Sudoku()
+	print(sudoku)
+	sudoku.add_row(0,[8,0,0,0,1,6,0,0,9])
+	sudoku.add_row(1,[0,2,0,0,0,4,5,1,0])
+	sudoku.add_row(2,[0,3,5,0,7,0,4,0,0])
+	sudoku.add_row(3,[5,1,0,4,0,3,0,0,0])
+	sudoku.add_row(4,[7,0,2,0,5,0,1,0,3])
+	sudoku.add_row(5,[0,0,0,7,0,1,0,5,8])
+	sudoku.add_row(6,[0,0,7,0,9,0,8,2,0])
+	sudoku.add_row(7,[0,5,8,3,0,0,0,6,0])
+	sudoku.add_row(8,[9,0,0,2,6,0,0,0,5])
+	print(sudoku)
+	sudoku.solve()
+	print(sudoku)
+
+main()
+			
+			
+
+			
 			
 			
 			
