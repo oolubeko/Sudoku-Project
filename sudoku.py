@@ -69,6 +69,232 @@ class Sudoku:
 				print(self.grid[i][j],end='|')
 			print()
 			
+	#This method checks if Box1 meets the constraints for Sudoku and returns true if it does
+	def check_box_one(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(3):
+			for j in range(3):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box2 meets the constraints for Sudoku and returns true if it does
+	def check_box_two(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(3):
+			for j in range(3,6):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box3 meets the constraints for Sudoku and returns true if it does
+	def check_box_three(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(3):
+			for j in range(6,9):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box4 meets the constraints for Sudoku and returns true if it does
+	def check_box_four(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(3,6):
+			for j in range(3):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box5 meets the constraints for Sudoku and returns true if it does
+	def check_box_five(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(3,6):
+			for j in range(3,6):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+	
+	#This method checks if Box6 meets the constraints for Sudoku and returns true if it does
+	def check_box_six(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(3,6):
+			for j in range(6,9):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box7 meets the constraints for Sudoku and returns true if it does
+	def check_box_seven(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(6,9):
+			for j in range(3):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box8 meets the constraints for Sudoku and returns true if it does
+	def check_box_eight(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(6,9):
+			for j in range(3,6):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+	#This method checks if Box9 meets the constraints for Sudoku and returns true if it does
+	def check_box_nine(self):
+	
+		#Possibility: we can optimize by only using one for loop that checks both row and col and uses offsets
+		numArray = {}
+		count = 0
+		for i in range(6,9):
+			for j in range(6,9):
+				val = self.grid[i][j]
+				if val in numArray:		#Check to see if the number is in the hash table, and if it is, increment its count by 1
+					numArray[val] += 1
+				else:
+					numArray[val] = 1	#else, add it to the hash table
+					
+		#Iterate through the hash table and check if a value is greater than 1
+		for key in numArray:
+		
+			if key == 0:		#We ignore zero values, because that is an unvisited square
+				continue
+			
+			if numArray[key] > count:
+				count = numArray[key]
+				
+		return count < 1
+		
+			
 	#This method checks if a particular box fulfills the rules of sudoku. That is, the numbers 1 to 9 appear uniquely in the 3x3 box. 
 	#This method takes in 2 parameters: The row and the col, and returns a boolean value based on if the box fulfills the sudoku rules
 	def check_box(self,row,col):
@@ -108,5 +334,7 @@ class Sudoku:
 				
 			elif col == 6 or col == 7 or col == 8:	#Box 9
 				isValid = check_box_nine()
+				
+		return isValid
 			
 			
