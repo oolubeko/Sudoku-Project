@@ -92,7 +92,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box2 meets the constraints for Sudoku and returns true if it does
 	def check_box_two(self):
@@ -117,7 +117,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box3 meets the constraints for Sudoku and returns true if it does
 	def check_box_three(self):
@@ -142,7 +142,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box4 meets the constraints for Sudoku and returns true if it does
 	def check_box_four(self):
@@ -167,7 +167,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box5 meets the constraints for Sudoku and returns true if it does
 	def check_box_five(self):
@@ -192,7 +192,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 	
 	#This method checks if Box6 meets the constraints for Sudoku and returns true if it does
 	def check_box_six(self):
@@ -217,7 +217,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box7 meets the constraints for Sudoku and returns true if it does
 	def check_box_seven(self):
@@ -242,7 +242,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box8 meets the constraints for Sudoku and returns true if it does
 	def check_box_eight(self):
@@ -267,7 +267,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 	#This method checks if Box9 meets the constraints for Sudoku and returns true if it does
 	def check_box_nine(self):
@@ -292,7 +292,7 @@ class Sudoku:
 			if numArray[key] > count:
 				count = numArray[key]
 				
-		return count < 1
+		return count < 2
 		
 			
 	#This method checks if a particular box fulfills the rules of sudoku. That is, the numbers 1 to 9 appear uniquely in the 3x3 box. 
@@ -336,5 +336,44 @@ class Sudoku:
 				isValid = check_box_nine()
 				
 		return isValid
+		
+		#This method checks if the row of the value is unique. One parameter: The row
+		def check_row(self,row):
+			h_row = {}
+			count = 0
+			
+			for i in range(9):
+				if self.grid[row][i] in h_row:
+					h_row[self.grid[row][i]] += 1
+				else:
+					h_row[self.grid[row][i]] = 1
+			
+			for key in h_row:
+				if key == 0:
+					continue
+				if h_row[key] > count:
+					count = h_row[key]
+					
+			return count < 2
+			
+		#This method checks if the col of the value is unique. One parameter: The col
+		def check_col(self,col):
+			v_col = {}
+			count = 0
+			
+			for i in range(9):
+				if self.grid[i][col] in v_col:
+					v_col[self.grid[i][col]] += 1
+				else:
+					v_col[self.grid[i][col]] = 1
+			
+			for key in v_col:
+				if key == 0:
+					continue
+				if v_col[key] > count:
+					count = v_col[key]
+					
+			return count < 2
+			
 			
 			
