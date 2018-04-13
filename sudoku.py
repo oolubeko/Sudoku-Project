@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+#Creator: Tomi Olubeko
+#Date Created: 3/21/18
 #Sudoku solver for a basic sudoku puzzle. A sudoku puzzle consists of 9 3x3 boxes containing the numbers 1 through 9 in each box.
 #The objective of a sudoku puzzle is to place the numbers 1 to 9 in each of the boxes in such a way that no number is duplicated horizontally,
 #vertically, or within each 3x3 box. The sudoku puzzle is solved when every box is filled with a number from 1 to 9 while fulfilling the 
